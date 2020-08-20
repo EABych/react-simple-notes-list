@@ -34,11 +34,6 @@ export default function Preview(props) {
             action: setImgTransform,
         },
         {
-            icon: '',
-            id: '',
-            action: '',
-        },
-        {
             icon: mdiDeleteForever,
             id: 'deleteImg',
             action: deleteImg,
@@ -60,8 +55,12 @@ export default function Preview(props) {
                 aria-label="outlined primary button group"
             >
                 {
-                    buttonsList.map(button => (
-                        <Button id={button.id} onClick={button.action}>
+                    buttonsList.map((button, i) => (
+                        <Button
+                            key={button.id + i}
+                            id={button.id}
+                            onClick={button.action}
+                        >
                             <Icon
                                 size={1}
                                 path={button.icon}
