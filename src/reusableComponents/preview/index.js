@@ -11,8 +11,7 @@ import { mdiMagnifyMinus, mdiMagnifyPlus, mdiRotateRight, mdiRotateLeft, mdiDele
 export default function Preview(props) {
     const classes = useStyles();
     const {setImgScale, setImgTransform, note, deleteImg} = props
-
-    const buttonsList = [
+    const buttonsList  = [
         {
             icon: mdiMagnifyPlus,
             id: 'Increment',

@@ -10,7 +10,10 @@
     "@testing-library/user-event": "^7.2.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "3.4.3"
+    "react-scripts": "3.4.3",
+    "redux": "^4.0.5",
+    "redux-thunk": "^2.3.0",
+    "uniqid": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -36,6 +39,8 @@
   "devDependencies": {
     "@material-ui/icons": "^4.9.1",
     "@mdi/js": "^5.5.55",
-    "@mdi/react": "^1.4.0"
+    "@mdi/react": "^1.4.0",
+    "react-redux": "^7.2.1",
+    "react-router-dom": "^5.2.0"
   }
 }

@@ -1,15 +1,12 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import { useStyles } from './style';
 import TextField from '@material-ui/core/TextField';
-import {StateContext} from "../../App";
 import Button from "@material-ui/core/Button";
 import IconButton from '@material-ui/core/IconButton';
 import PhotoCamera from '@material-ui/icons/PhotoCamera';
 
-
-export default function FieldsForAddOrEditNote({note, onChange, onClick, onFileUpload}) {
+export default function FieldsForAddOrEditNote({note, onChange, onClick, onFileUpload, activeNote}) {
     const classes = useStyles();
-    const {globalStore} = useContext(StateContext);
 
     return (
         <form className={classes.root} noValidate autoComplete="off">
@@ -38,7 +35,7 @@ export default function FieldsForAddOrEditNote({note, onChange, onClick, onFileU
                 onClick={onClick}
                 disabled={!note.name}
             >
-                {!!globalStore.notes.activeNote ? 'Save' : 'Add'}
+                {!!activeNote ? 'Save' : 'Add'}
             </Button>
         </form>
     );

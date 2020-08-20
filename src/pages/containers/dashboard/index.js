@@ -1,26 +1,26 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {StateContext} from '../../../App'
+import React, {useEffect, useState} from 'react';
 import Dashboard from '../../components/dashboard'
-import {initialImageProps} from "../../../constants";
+import {initialImageProps, topDrawerFillingConstants} from "../../../constants";
+import {alertActions, pageActions, userActions} from "../../../_actions";
+import {connect} from "react-redux";
 
-function DashboardContainer() {
+function DashboardContainer(props) {
     const now = new Date()
     const initialNoteInfo = {
         name: '',
         date: now.toDateString(),
         img: initialImageProps,
     }
-    const {globalStore, setGlobalStore} = useContext(StateContext);
-    const [activeNote, setActiveNote] = useState(globalStore.notes.notesList
-        .find(note => note.id === globalStore.notes.activeNote) || initialNoteInfo)
+    const [activeNote, setActiveNote] = useState(props.notes
+        .find(note => note.id === props.activeNote) || initialNoteInfo)
 
     useEffect(()=>{
-        if(!!globalStore.notes.activeNote){
-            setActiveNote(globalStore.notes.notesList.find(note => note.id === globalStore.notes.activeNote))
+        if(!!props.activeNote){
+            setActiveNote(props.notes.find(note => note.id === props.activeNote))
         } else {
             setActiveNote( initialNoteInfo)
         }
-    },[globalStore.notes.activeNote])
+    },[props.activeNote, props.notes])
 
     const changeTemporaryData = event => {
         const {id, value} = event.currentTarget
@@ -55,7 +55,11 @@ function DashboardContainer() {
     }
 
     const refreshDataGlobal = () => {
-        setGlobalStore({type: !!activeNote.id ? 'saveNodeChange':'addNewNote', payload: activeNote})
+        if(!!activeNote.id){
+            props.editNote({note: activeNote, id: props.id})
+        } else {
+            props.addNote({note: activeNote, id: props.id})
+        }
         clearTemporaryData()
     }
 
@@ -64,16 +68,16 @@ function DashboardContainer() {
     }
 
     const closeTopDrawer = () => {
-        setGlobalStore({type: 'closeTopDrawer'})
+        props.closeTopDrawer()
         clearTemporaryData()
     }
 
     const editNote = id => {
-        setGlobalStore({type: 'editNote', payload: {id}})
+        props.openTopDrawer({filling: topDrawerFillingConstants.EDIT_NOTE, id})
     }
 
     const deleteNote = id => {
-        setGlobalStore({type: 'deleteNote', payload: {id}})
+        props.deleteNote({noteId: id, id: props.id})
     }
 
     const setImgTransform = event => {
@@ -113,8 +117,31 @@ function DashboardContainer() {
             setImgTransform={setImgTransform}
             setImgScale={setImgScale}
             deleteImg={deleteImg}
+            isOpen={props.isOpen}
+            notes={props.notes}
+            globalActiveNote={props.globalActiveNote}
         />
     );
 }
 
-export default DashboardContainer;
+const mapStateToProps = state => {
+    const {notes, id} = state.authentication.user
+    const {activeNote} = state.page
+    const {isOpen} = state.page.topDrawer
+    const globalActiveNote = state.page.activeNote
+
+
+    return {notes, activeNote, id, isOpen, globalActiveNote}
+};
+
+const mapDispatchToProps = {
+    clearAlerts: alertActions.clear,
+    openTopDrawer: pageActions.openTopDrawer,
+    closeTopDrawer: pageActions.closeTopDrawer,
+    addNote: userActions.addNote,
+    editNote: userActions.editNote,
+    deleteNote: userActions.deleteNote,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardContainer)
+

@@ -1,22 +1,34 @@
-import React, {useReducer} from 'react';
+import React from 'react';
 import './App.css';
-import globalStateReducer, {initialGlobalState}  from './globalStore'
 import Dashboard from './pages/containers/dashboard'
+import LoginPage from './pages/containers/login'
+import RegisterPage from './pages/containers/register'
 import Header from './reusableComponents/header'
+import { configureFakeBackend, history } from './_helpers';
+import {Redirect, Route, Router, Switch} from 'react-router-dom';
+import {PrivateRoute} from "./_helpers/PrivateRoute";
+import { Provider } from 'react-redux';
+import { store } from './_helpers';
 
-export const StateContext = React.createContext(initialGlobalState);
+// setup fake backend
+configureFakeBackend();
 
 function App() {
 
-    const [globalStore, setGlobalStore] = useReducer(globalStateReducer, initialGlobalState);
-
-
-  return (
-      <StateContext.Provider value={{globalStore, setGlobalStore}}>
-          <Header/>
-          <Dashboard/>
-      </StateContext.Provider>
-  );
+    return (
+        <Provider store={store}>
+              <Header/>
+              <Router history={history}>
+                  <Switch>
+                      <PrivateRoute exact path="/" component={Dashboard}/>
+                      <Route path="/login" component={LoginPage}/>
+                      <Route path="/register" component={RegisterPage}/>
+                      <Redirect from="*" to="/"/>
+                  </Switch>
+              </Router>
+        </Provider>
+    );
 }
 
-export default App;
+export default App
+
