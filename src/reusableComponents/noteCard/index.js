@@ -21,7 +21,7 @@ const LightTooltip = withStyles((theme) => ({
     },
 }))(Tooltip);
 
-export default ({note, editNote, deleteNote, buttonsDisabled, imgTransform = 0, imgScale = 1}) => {
+export default ({note, editNote, deleteNote, buttonsDisabled}) => {
     const classes = useStyles();
     const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -50,7 +50,7 @@ export default ({note, editNote, deleteNote, buttonsDisabled, imgTransform = 0, 
                 variant="outlined"
                 className={classes.rootCard}
             >
-                <CardActions>
+                <CardActions className={classes.menu}>
                     <IconButton
                         aria-label="more"
                         aria-controls="long-menu"
@@ -95,6 +95,7 @@ export default ({note, editNote, deleteNote, buttonsDisabled, imgTransform = 0, 
                     {
                         !!note.img.src &&
                         <img
+                            alt={'note image'}
                             id="image_canv"
                             src={note.img.src}
                             className={classes.rootImg}

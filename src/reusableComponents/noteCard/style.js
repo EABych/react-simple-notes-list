@@ -1,6 +1,6 @@
 import {makeStyles} from "@material-ui/core/styles";
 
-export const useStyles = makeStyles((theme) => ({
+export const useStyles = makeStyles(() => ({
     previewContainer: {
         margin: '2rem',
         height: '26rem',
@@ -13,7 +13,12 @@ export const useStyles = makeStyles((theme) => ({
     },
     rootCard: {
         minWidth: 275,
-        backgroundColor: '#d2d2d270'
+        backgroundColor: '#d2d2d270',
+        position: 'relative',
+    },
+    menu:{
+        position: 'absolute',
+        right: 0,
     },
     imgContainer: {
         maxHeight: 200,

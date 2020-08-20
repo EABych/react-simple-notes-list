@@ -1,5 +1,4 @@
-import React, {useContext} from 'react';
-import {StateContext} from '../../../App'
+import React from 'react';
 import TemporaryTopDrawer from "../../../reusableComponents/topDrawer";
 import FieldsForAddOrEditNote from "../../../reusableComponents/fieldsForAddOrEditNote";
 import Preview from "../../../reusableComponents/preview";
@@ -20,14 +19,13 @@ function Dashboard(props) {
         setImgScale,
         setImgTransform,
         deleteImg,
+        globalActiveNote,
     } = props
-    const { globalStore } = useContext(StateContext);
     const classes = useStyles();
-
     return (
         <>
             <TemporaryTopDrawer
-                isOpen={globalStore.screenToggleElementsState.topDrawer.isOpen}
+                isOpen={props.isOpen}
                 close={closeTopDrawer}
             >
                 <FieldsForAddOrEditNote
@@ -35,6 +33,7 @@ function Dashboard(props) {
                     onClick={refreshDataGlobal}
                     onFileUpload={onFileUpload}
                     note={activeNote}
+                    activeNote={globalActiveNote}
                 />
                 <Preview
                     note={activeNote}
@@ -45,11 +44,18 @@ function Dashboard(props) {
                 />
             </TemporaryTopDrawer>
             <div className={classes.root}>
-                <Typography variant="h5" component="h1" className={classes.mainAriaTitle}>
+                <Typography variant="h3" component="h1" className={classes.mainAriaTitle}>
                     Notes list
                 </Typography>
                 <Grid container spacing={3}>
-                    {globalStore.notes.notesList.map((note) => (
+                    {
+                        !props.notes.length &&
+                        <Typography color={'primary'} variant="h6" component="h1" className={classes.mainAriaTitle}>
+                            You have no notes.
+                            You can start adding notes right now!
+                        </Typography>
+                    }
+                    {props.notes.map((note) => (
                         <PreviewNote
                             key={note.id}
                             note={note}
@@ -63,4 +69,6 @@ function Dashboard(props) {
     );
 }
 
-export default Dashboard;
+export default Dashboard
+
+
