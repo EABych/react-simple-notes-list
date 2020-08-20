@@ -5,7 +5,7 @@ export const styles = () => (
             height: '3.5rem',
             boxSizing: 'border-box',
 
-            backgroundColor: 'rgba(36, 0, 255, 0.68)',
+            backgroundColor: 'rgb(93 118 255 / 91%)',
 
             padding: '1rem',
 
@@ -15,6 +15,9 @@ export const styles = () => (
         },
         mainHeader_rightButtonsContainer: {
             padding: '0 1rem'
+        },
+        customButton: {
+            marginRight: '1rem',
         }
     }
 )

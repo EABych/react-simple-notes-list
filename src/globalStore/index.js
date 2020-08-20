@@ -1,4 +1,4 @@
-import {topDrawerFillingConstants} from "../constants";
+import {initialImageProps, topDrawerFillingConstants} from "../constants";
 
 export const initialGlobalState = {
     user: {
@@ -11,13 +11,13 @@ export const initialGlobalState = {
                 id: 1,
                 name: 'First note',
                 date: 'Wed Aug 19 2020',
-                img: ''
+                img: initialImageProps
             },
             {
                 id: 2,
                 name: 'Second note',
                 date: 'Wed Aug 19 2020',
-                img: ''
+                img: initialImageProps
             },
         ],
         activeNote: '',

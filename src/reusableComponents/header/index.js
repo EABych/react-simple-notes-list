@@ -30,6 +30,9 @@ function Dashboard(props) {
             logo
             <div className={classes.mainHeader_rightButtonsContainer}>
                 <Button
+                    classes={{
+                        root: classes.customButton,
+                    }}
                     variant="contained"
                     color="secondary"
                     onClick={handleClickAddNewNote}
@@ -38,7 +41,7 @@ function Dashboard(props) {
                 </Button>
                 <Button
                     variant="contained"
-                    color="secondary"
+                    color="primary"
                     aria-controls="simple-menu"
                     aria-haspopup="true"
                     onClick={handleClickOpenMenu}
