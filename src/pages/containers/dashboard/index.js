@@ -80,7 +80,7 @@ function DashboardContainer() {
         setActiveNote({
             ...activeNote,
             img: {...activeNote.img,
-                imgTransform: event.target.id === 'Increment' ?  activeNote.img.imgTransform + 90 : activeNote.img.imgTransform - 90
+                imgTransform: event.currentTarget.id === 'Increment' ?  activeNote.img.imgTransform + 90 : activeNote.img.imgTransform - 90
             }
         })
     }
@@ -89,7 +89,7 @@ function DashboardContainer() {
         setActiveNote({
             ...activeNote,
             img: {...activeNote.img,
-                imgScale: event.target.id === 'Increment' ?  activeNote.img.imgScale + 0.1 : activeNote.img.imgScale - 0.1
+                imgScale: event.currentTarget.id === 'Increment' ?  activeNote.img.imgScale + 0.1 : activeNote.img.imgScale - 0.1
             }
         })
     }

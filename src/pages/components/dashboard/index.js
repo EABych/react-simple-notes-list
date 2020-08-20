@@ -51,6 +51,7 @@ function Dashboard(props) {
                 <Grid container spacing={3}>
                     {globalStore.notes.notesList.map((note) => (
                         <PreviewNote
+                            key={note.id}
                             note={note}
                             editNote={editNote}
                             deleteNote={deleteNote}
